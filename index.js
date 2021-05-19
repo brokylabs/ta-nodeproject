@@ -1,14 +1,14 @@
 // Defines Packages
 
 const express       = require('express');
-const app           = express()
-const bodyParser    = require('body-parser')
-const mongoose      = require('mongoose')
+const bodyParser    = require('body-parser');
+const mongoose      = require('mongoose');
 
-// const mahasiswa        = require('./api.routes')
+const app           = express();
+const mahasiswa     = require('./api.routes')
 
 // Define PORT
-const port          = 3000
+const port          = 3000;
 
 // Connect to database mongoDB 
 mongoose.connect('mongodb://localhost:27017/mahasiswa', {
@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/mahasiswa', {
 });
 
 // parse any HTTP Request / x-www-form-urlencoded
-app.use(bodyParser.json)
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended : false
 }));
@@ -29,12 +29,12 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res){
     res.send('Home Page')
 });
-// app.use('/mahasiswa', mahasiswa);
+app.use('/mahasiswa', mahasiswa);
 
 
 
 // App Listen / running
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
-})
+});
 
