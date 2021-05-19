@@ -7,9 +7,9 @@ const router           = require('express').Router();
 //     next();
 // });
 
-router.get('/', function(req, res){
+router.get('/mahasiswa', function(req, res){
     res.json({
-        message : 'Home page'
+        message : 'Mahasiswa page'
     })
 });
         

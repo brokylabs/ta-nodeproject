@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({
 app.get('/', function(req, res){
     res.send('Home Page')
 });
-app.use('/mahasiswa', mahasiswa);
+app.use('/api', mahasiswa);
 
 
 
