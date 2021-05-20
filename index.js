@@ -11,7 +11,7 @@ const mahasiswa     = require('./api.routes')
 const port          = 3000;
 
 // Connect to database mongoDB 
-mongoose.connect('mongodb://localhost:27017/mahasiswa', {
+mongoose.connect('mongodb://localhost/mahasiswa', {
     useNewUrlParser : true,
     useUnifiedTopology : true,
     useFindAndModify : false,
