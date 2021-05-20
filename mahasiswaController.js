@@ -9,7 +9,7 @@ exports.index = function(req, res){
             res.json({
                 status : 'Error',
                 message : err
-            })
+            });
         }
         res.json({
             status : 'Success',
@@ -41,20 +41,17 @@ exports.new = function(req, res){
 }
 
 // Handle View Mahasiswa
-exports.get = function(req, res){
+exports.view = function(req, res){
     Mahasiswa.findById(req.params.Mahasiswa_id, function(err, mahasiswa){
         if(err)
         res.send(err)
-        res.json({
-            message : 'Mahasiswa Info...',
-            data : mahasiswa
-        });
+        res.json(mahasiswa);
     });
 }
 
 // Handle Update Data Mahasiswa
 exports.update = function(req, res){
-    Mahasiswa.findOne(req.params.Mahasiswa_id, function(err, mahasiswa){
+    Mahasiswa.findById(req.params.mahasiswa_id, function(err, mahasiswa){
         if(err)
         res.send(err)
         mahasiswa.nim = req.body.nim
@@ -64,13 +61,8 @@ exports.update = function(req, res){
 
         // Save Data Mahasiswa
         mahasiswa.save(function(err){
-            if(err){
-                res.json({
-                    status : err,
-                    message : "Update Data Mahasiswa Failed!"
-                })
-            }
-
+            if(err)
+            res.send(err)
             res.json({
                 message : 'Data Mahasiswa Updated!',
                 data : mahasiswa

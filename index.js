@@ -26,9 +26,9 @@ app.use(bodyParser.urlencoded({
 
 
 // Routing API
-app.get('/', function(req, res){
-    res.send('Home Page')
-});
+// app.get('/', function(req, res){
+//     res.send('Home Page')
+// });
 app.use('/api', mahasiswa);
 
 

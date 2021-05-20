@@ -6,14 +6,24 @@ const router           = require('express').Router();
 //     console.log('Time : ', Date.now());
 //     next();
 // });
+// Insert Mahasiswa Controller
+const mahasiswaController = require('./mahasiswaController')
 
-router.get('/mahasiswa', function(req, res){
+router.get('/', function(req, res){
     res.json({
-        message : 'Mahasiswa page'
+        message : 'Home page'
     })
 });
+
+router.route('/mahasiswa')
+        .get(mahasiswaController.index)
+        .post(mahasiswaController.new)
+
+
+router.route('/mahasiswa/:mahasiswa_id')
+        .get(mahasiswaController.view)
+        .put(mahasiswaController.update)
+        .delete(mahasiswaController.remove)
         
-
-
 
 module.exports = router

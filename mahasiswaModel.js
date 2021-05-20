@@ -1,9 +1,9 @@
 const  mongoose  = require('mongoose');
 
-const Scheme = mongoose.Scheme;
-const objectId = Scheme.objectId;
+const Schema = mongoose.Schema;
+// const ObjectId = Scheme.ObjectId;
 
-const mahasiswaSchema = new Scheme({
+const mahasiswaSchema = new Schema({
     nim : {
         type : Number,
         require : true
