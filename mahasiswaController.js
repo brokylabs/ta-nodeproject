@@ -22,7 +22,7 @@ exports.index = function(req, res){
 // Handle Create Mahasiswa
 exports.new = function(req, res){
 
-    // Find Data Mahasiswa if is already
+    // Find Data Mahasiswa if nim is already
     const cekNim = req.body.nim;
     Mahasiswa.findOne({nim:cekNim}, function(err, mahasiswa){
         if(err) res.json({
@@ -73,22 +73,26 @@ exports.view = function(req, res){
 // Handle Update Data Mahasiswa
 exports.update = function(req, res){
     Mahasiswa.findById(req.params.mahasiswa_id, function(err, mahasiswa){
-        if(err)
+        if(err) 
         res.send(err)
-        mahasiswa.nim = req.body.nim
+        mahasiswa.nim = req.body.nim ? req.body.nim : mahasiswa.nim;
         mahasiswa.nama = req.body.nama
         mahasiswa.jurusan = req.body.jurusan
         mahasiswa.semester = req.body.semester
 
-        // Save Data Mahasiswa
+        // Handle save data mahasiswa
         mahasiswa.save(function(err){
-            if(err)
-            res.send(err)
+            if(err) {
+                res.json({
+                    status : 'error',
+                    message : err
+                })
+            }
             res.json({
-                message : 'Data Mahasiswa Updated!',
+                message : 'Data Updated!',
                 data : mahasiswa
-            });
-        });
+            })
+        })
     })
 }
 
