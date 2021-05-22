@@ -21,25 +21,41 @@ exports.index = function(req, res){
 
 // Handle Create Mahasiswa
 exports.new = function(req, res){
-    const mahasiswa = new Mahasiswa();
-    mahasiswa.nim = req.body.nim
-    mahasiswa.nama = req.body.nama
-    mahasiswa.jurusan = req.body.jurusan
-    mahasiswa.semester = req.body.semester
 
-    // Hanlde Save Data Mahasiswa
-    mahasiswa.save(function(err){
-        if(err) {
+    // Find Data Mahasiswa if is already
+    const cekNim = req.body.nim;
+    Mahasiswa.findOne({nim:cekNim}, function(err, mahasiswa){
+        if(err) res.json({
+            message : err
+        })
+        if(mahasiswa){
             res.json({
-                status : 'error',
-                Message : err
+                message : 'This NIM is Already been saved!'
+            })
+        } else {
+            const mahasiswa = new Mahasiswa();
+            mahasiswa.nim = req.body.nim
+            mahasiswa.nama = req.body.nama
+            mahasiswa.jurusan = req.body.jurusan
+            mahasiswa.semester = req.body.semester
+        
+            
+            // Hanlde Save Data Mahasiswa
+            mahasiswa.save(function(err){
+                if(err) {
+                    res.json({
+                        status : 'error',
+                        message : err
+                    })
+                }
+                res.json({
+                    message : 'New Mahasiswa Created!',
+                    data : mahasiswa
+                })
             })
         }
-        res.json({
-            message : 'New Mahasiswa Created!',
-            data : mahasiswa
-        })
-    })
+    });
+
 }
 
 // Handle View Mahasiswa
