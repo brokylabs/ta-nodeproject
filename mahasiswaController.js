@@ -4,7 +4,7 @@ const Mahasiswa = require("./mahasiswaModel");
 
 // Hanlde Mahasiswa index / Get all Mahasiswa
 exports.index = function(req, res){
-    Mahasiswa.get(function(err, mahasiswa){
+    Mahasiswa.find(function(err, mahasiswa){
         if(err) {
             res.json({
                 status : 'Error',
@@ -26,6 +26,8 @@ exports.new = function(req, res){
     mahasiswa.nama = req.body.nama
     mahasiswa.jurusan = req.body.jurusan
     mahasiswa.semester = req.body.semester
+
+    // Hanlde Save Data Mahasiswa
     mahasiswa.save(function(err){
         if(err) {
             res.json({
@@ -42,10 +44,13 @@ exports.new = function(req, res){
 
 // Handle View Mahasiswa
 exports.view = function(req, res){
-    Mahasiswa.findById(req.params.Mahasiswa_id, function(err, mahasiswa){
+    Mahasiswa.findById(req.params.mahasiswa_id, function(err, mahasiswa){
         if(err)
         res.send(err)
-        res.json(mahasiswa);
+        res.json({
+            message : 'Mahasiswa Detail!',
+            data : mahasiswa
+        });
     });
 }
 
@@ -73,8 +78,8 @@ exports.update = function(req, res){
 
 // handle Delete Data Mahasiswa
 exports.remove = function(req, res){
-    Mahasiswa.remove({
-        _id : req.params.Mahasiswa_id
+    Mahasiswa.deleteOne({
+        _id : req.params.mahasiswa_id
     }, function(err, mahasiswa){
         if(err)
         res.send(err)
